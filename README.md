@@ -113,7 +113,7 @@ When Mantle’s LSPosed/Xposed hooks are active for `com.mantle.verify`, the app
 ### 📄 Export Report (NEW)
 - One-tap “Share Diagnostic Report”
 - Includes all captured identifiers
-- Ideal for debugging Mantle Console spoof setups
+- Ideal for debugging Mantle spoof setups
 
 ### 📡 Network & Radio
 - SIM operator, MCC/MNC

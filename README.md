@@ -3,8 +3,10 @@
 > Companion **diagnostics app** for the Mantle ecosystem. See exactly what device, network, location, and account identifiers a regular Android app can read — and verify your LSPosed/Xposed spoofing hooks in real time.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f5d83a3d-384d-4f12-84f8-b95a22eecd70" alt="Home" width="49%" />
-  <img src="https://github.com/user-attachments/assets/bccfbf98-9d98-49f9-8324-014f4eae9881" alt="About" width="49%" />
+  <img src="https://raw.githubusercontent.com/get-mantle/Mantle-Verify/refs/heads/main/Home.png" alt="Home" width="24%" />
+  <img src="https://raw.githubusercontent.com/get-mantle/Mantle-Verify/refs/heads/main/red.png" alt="Detector Red" width="24%" />
+  <img src="https://raw.githubusercontent.com/get-mantle/Mantle-Verify/refs/heads/main/green.png" alt="Detector Green" width="24%" />
+  <img src="https://raw.githubusercontent.com/get-mantle/Mantle-Verify/refs/heads/main/about.png" alt="About" width="24%" />
 </p>
 
 ---
@@ -14,19 +16,53 @@
 **Mantle Verify** shows the identifiers, signals, and environment data that ordinary Android apps can access on your device.  
 When Mantle’s LSPosed/Xposed hooks are active for `com.mantle.verify`, the app reflects the **virtualized (spoofed)** values — making it easy to confirm your per-app identity, GPS spoofing, timezone spoofing, and anti-fingerprinting setup.
 
-**Now enhanced in v2.0.0 with:**
-- **Location Panel:** live coordinates + full address (reverse-geocoded), spoof detection  
-- **Timezone Panel:** system timezone, UTC offset, spoof verification  
-- **Copy All / Export Report:** one-tap full device diagnostic export  
-- **Remote-Config Ads:** Firebase-controlled placements (enable/disable instantly)  
-- **Improved About Screen:** Mantle links, version info, theme selector  
+---
 
+## What’s New in v2.1.0
+
+### 🛡️ Environment / Root Detector (New Screen)
+- Added a dedicated **“Environment / Root Detector”** screen to quickly assess whether the device looks rooted or heavily modified.
+- Clear **Green = clean / Red = suspicious** status for each check.
+- Summary line showing overall status, e.g.  
+  `Status: Looks clean for all checks.` or  
+  `Status: Root / modifications detected (N red checks).`
+- One-tap **floating action button** to re-run all checks.
+
+### 🔍 Root & Xposed / LSPosed Detection
+- Detects **root / patch frameworks** like:
+  - Magisk (stable / forks)  
+  - KernelSU  
+  - APatch  
+  - Shizuku (privileged API)
+- Detects **Xposed / LSPosed managers & related apps**:
+  - LSPosed Manager  
+  - EdXposed Manager  
+  - Classic Xposed Installer  
+  - TaiChi  
+  - Hide My Applist (HMA)
+- Scans installed apps for **Xposed / LSPosed modules** via classic manifest meta-data keys:
+  - `xposedmodule`  
+  - `xposedmoduleminversion`  
+  - `xposedminversion`
+- Flags additional environment signals:
+  - `su` / BusyBox binaries in common paths  
+  - RW mounts on `/system`, `/vendor`, `/odm`  
+  - Dangerous system properties (`ro.debuggable=1`, `ro.secure=0`, unlocked vbmeta)  
+  - Root-hider / cloaker apps (HMA, App Ops, Sui)  
+  - SELinux mode via `getenforce` (permissive vs enforcing)  
+  - Magisk traces and modules directory  
+  - Xposed bridge class presence  
+  - Signature spoof (`FAKE_PACKAGE_SIGNATURE`)  
+  - Custom recovery traces (TWRP, recovery logs/scripts)
+
+> Note: All checks are **heuristic**. A clever ROM or root-hider can still bypass them.
 ---
 
 ## Sections Displayed
 
 - **Location (NEW)** – coordinates, full address, spoofed GPS values  
 - **Timezone (NEW)** – region + UTC offset, spoof spoof-detection  
+- **Environment / Root Detector (NEW in v2.1.0)** – root frameworks, su/busybox, Magisk traces, SELinux mode, Xposed/LSPosed managers & modules, signature spoof, recovery traces  
 - **Device / OS**
 - **Network & SIM**
 - **Wi-Fi & Bluetooth**
@@ -56,7 +92,7 @@ When Mantle’s LSPosed/Xposed hooks are active for `com.mantle.verify`, the app
 
 ---
 
-## Features (v2.0.0)
+## Features
 
 ### 🔍 Core Diagnostics
 - Real vs spoofed ID visibility
@@ -103,13 +139,6 @@ When Mantle’s LSPosed/Xposed hooks are active for `com.mantle.verify`, the app
 - New revamped About screen
 - Theme selector (System / Light / Dark)
 - Mantle website + Telegram links
-
-### 📢 Remote-Config Ads (Firebase)
-- Per-placement control:
-  - Below Network
-  - Below Google IDs
-  - Below Links (About Screen)
-
 ---
 
 ## Permissions
